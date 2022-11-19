@@ -83,6 +83,8 @@ Ze strony https://gparted.org/download.php pobierz plik gparted-live-1.3.1-1-amd
 
 ## Zadanie 9
 
+Napisz skrypt w języku Python, w którym wygenerujesz hash MD5 dowolnego ciągu znaków podawanego jako argument wywołania skryptu. Sprawdź poprawność wygenerowanego hasha porównując go z wynikiem otrzymanym przy pomocy md5sum lub openssl.
+
 ## Rozwiazanie
 
 ```
@@ -102,6 +104,8 @@ print(h.hexdigest())
 ***output: MD5(stdin)= 5eb63bbbe01eeed093cb22bb8f5acdc3***
 
 ## Zadanie 10
+
+Napisz skrypt w języku Python, w którym wygenerujesz hash SHA-1 dowolnego pliku podawanego jako argument wywołania  skryptu.  Sprawdź  poprawność  wygenerowanego  hasha  porównując  go  z  wynikiem  otrzymanym  przy pomocy sha1sum lub openssl.
 
 ## Rozwiazanie
 

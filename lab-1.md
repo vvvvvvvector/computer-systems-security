@@ -5,7 +5,7 @@
 3. echo "Ala ma kota" | hexdump -C  => 00000000  41 6c 61 20 6d 61 20 6b  6f 74 61 0a  |Ala ma kota.| ...and so on
 
 
-### Funkcja haszujaca SHA [secure shell algorithm]
+### Funkcja haszujaca SHA [secure hash algorithm]
 1. echo -n "Ala ma kota" | sha256sum => 124bfb6284d82f3b1105f88e3e7a0ee02d0e525193413c05b75041917022cd6e
 
 ### Kodowanie transportowe [base64] (dla transporu danych binarnych; transformacja do widomosci tekstowej)

@@ -161,6 +161,16 @@ for algorithm in hashlib.algorithms_available:
 1. ./main.py<br/>
 ***output: ripemd160***
 
+## Zadanie 13
+
+Wykonaj zadanie 6 za pomocą narzędzia hashcat.
+
+## Rozwiazanie
+
+1. hashcat -a 0 -m 0 hash.txt rockyou.txt<br/>
+***->-a 0 - atak slownikowy<br/>->-m 0 md5(hash-mode)***
+2. hashcat --show -m 0 hash.txt<br/>
+***output: 8afa847f50a716e64932d995c8e7435a:princess***
 
 
 

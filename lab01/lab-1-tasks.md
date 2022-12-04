@@ -161,6 +161,24 @@ for algorithm in hashlib.algorithms_available:
 1. ./main.py<br/>
    **_output: ripemd160_**
 
+## Zadanie 12
+
+Sprawdź, czy pliki **a.txt** oraz **b.txt** mają taką samą zawartość.
+
+## Rozwiazanie
+
+1. md5sum a.txt
+
+```
+65a7ad3ce593981059a3250600421319  a.txt
+```
+
+2. md5sum b.txt
+
+```
+5544cf5b584793733f5f61c9b049c225  b.txt
+```
+
 ## Zadanie 13
 
 Wykonaj zadanie 6 za pomocą narzędzia hashcat.
@@ -303,6 +321,7 @@ $6$pmqtr7vg$j3NPrwFohrNYY3VTTVAlYdWja.pNnrce7nNbP.Uiq8WksCUkfFFtRJ3udehVjk8rVpan
 ```
 
 2. hashcat -a0 -m 1800 z2.shadow --show
+
 ```
 $6$jTfZyjJr$xzqXw3CFldUMA3JESiGMyE2N2jr9YE062otJsiwLSWn9yWc/n0J0UszKzia/3IFnPh6c7ZSUaahgnRP/cuAYJ.:google
 $6$pmqtr7vg$j3NPrwFohrNYY3VTTVAlYdWja.pNnrce7nNbP.Uiq8WksCUkfFFtRJ3udehVjk8rVpanXxYFmlHHMzouP2Iyv.:onelove
@@ -315,7 +334,8 @@ Wykonaj zadanie **1.15** za pomocą narzędzia **hashcat**.
 ## Rozwiazanie
 
 1. hashcat -a 3 -m 1800 z5.shadow -i --increment-min=3 --increment-max=3<br/>
-***-> -a 3 => brute-force***
+   **_-> -a 3 => brute-force_**
+
 ```
 ...
 $6$3tVyi50r$TvxtOe7bNTtJE7QmYSWC7HTLlxxhaOXHgDi0fRceOBnsFpp0Cue/zkz21gO7wPEUimLCEhd33oWF7HD4JUns21:123
@@ -324,6 +344,7 @@ $6$FPMAFD62$GhrAXEUS359cBy3bh0.uY6VKqZx/Byx91M9wyFPLMYMTltSbfT9WU6sFtjUHMl8rTfij
 ```
 
 2. hashcat -a 3 -m 1800 z5.shadow -i --increment-min=3 --increment-max=3 --show
+
 ```
 $6$3tVyi50r$TvxtOe7bNTtJE7QmYSWC7HTLlxxhaOXHgDi0fRceOBnsFpp0Cue/zkz21gO7wPEUimLCEhd33oWF7HD4JUns21:123
 $6$FPMAFD62$GhrAXEUS359cBy3bh0.uY6VKqZx/Byx91M9wyFPLMYMTltSbfT9WU6sFtjUHMl8rTfijWeSLplFDkyY6YY9WE.:dhw
@@ -336,7 +357,7 @@ Wykonaj zadanie **1.16** za pomocą narzędzia **hashcat**.
 ## Rozwiazanie
 
 1. hashcat -a 3 -m 1800 z6.shadow -i --increment-min=5 --increment-max=5<br/>
-***udaja sie znalezc tylko haslo: 12345***
+   **_udaja sie znalezc tylko haslo: 12345_**
 
 ## Zadanie 21
 
@@ -346,12 +367,15 @@ Wykonaj zadanie **1.17** za pomocą narzędzia **hashcat**.
 
 1. touch rules.txt
 2. nano rules.txt
+
 ```
 ^# sa@ si1 se3 $#
 ```
+
 3. hashcat -a 0 -m 1800 z7.shadow rockyou.txt -r rules.txt
+
 ```
 ...
 $6$jZY/qU5z$3X7zLVRm8t.tLy46e0lNzL.pZ.3iP.w7huXCnzU6aIc2HAfV54Fv.Vx/kkHvG5V9sI2LH6kCVav6bClYjg0M2/:#p1n3@ppl3#
 ...
-``` 
+```

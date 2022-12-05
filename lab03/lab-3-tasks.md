@@ -1,4 +1,4 @@
-## My example
+## My example (szyfrowanie i odszyfrowanie)
 
 1. gen public and private key => pub.pem and priv.pem
 2. echo -n "hello world" > message.txt
@@ -19,6 +19,17 @@
 ```
 hello world
 ```
+
+## My example (podpisywanie i sprawdzanie ***rsautl(pkeyutl)***)
+
+1. gen public and private key => pub.pem and priv.pem
+2. echo -n "hello world" > message.txt
+3. openssl pkeyutl -sign -in message.txt -inkey priv.pem -out message.sig
+4. openssl pkeyutl -verify -pubin -inkey pub.pem -sigfile message.sig -in message.txt
+```
+Signature Verified Successfully
+```
+
 
 ## Zadanie 1
 
@@ -452,10 +463,3 @@ Posiadając parę kluczy **priv3.4.pem** odszyfruj plik **enc3.4.txt**. Wynik za
 dW1jcw==
 ```
 
-## Zadanie 4
-
-Posiadając parę kluczy **priv3.5.pem**, zweryfikuj podpis znajdujący się w pliku **sig3.5.txt**.
-
-## Rozwiazanie
-
-1.

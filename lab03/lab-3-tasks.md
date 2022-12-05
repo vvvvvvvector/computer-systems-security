@@ -463,3 +463,16 @@ Posiadając parę kluczy **priv3.4.pem** odszyfruj plik **enc3.4.txt**. Wynik za
 dW1jcw==
 ```
 
+## Zadanie 6
+
+Posiadając klucz publiczny **pub3.6.pem**, zweryfikuj podpisany skrót **SHA-1** pliku **ex3.6.txt** zapisany jako **sig3.6.txt**.
+
+## Rozwiazanie
+
+1. openssl dgst -sha1 -verify ex3.6pub.key -signature ex3.6.sig ex3.6.txt
+```
+Verified OK
+```
+
+***2. openssl dgst -sha1 -sign priv.pem -out message.sig message.txt - podpisywanie przyklad***
+

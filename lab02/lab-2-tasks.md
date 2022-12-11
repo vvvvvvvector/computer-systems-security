@@ -130,3 +130,148 @@ Wykonaj deszyfrowanie pliku **ex2.8.enc** za pomocą algorytmu **AES-256-CBC** z
 
 ## Rozwiazanie
 
+```
+co nie tak z tym zadaniem:<
+```
+
+## Zadanie 9
+
+Ze strony kursu pobierz plik secured.zip. Plik ten jest zabezpieczony hasłem. Jest to jedno z najczęściej używanych przez użytkowników haseł. Za pomocą programu JohnTheRipper spróbuj złamać hasło, którym zaszyfrowany jest plik.
+
+## Rozwiazanie
+
+1. zip2john ex2.9.zip > secured.hash
+2. john secured.hash --wordlist="rockyou.txt"
+
+```
+...cos tam
+222222 ....
+...costam
+```
+
+3. john secured.hash --show
+
+```
+ex2.9.zip/ex2.9.txt:222222:ex2.9.txt:ex2.9.zip::ex2.9.zip
+
+1 password hash cracked, 0 left
+```
+
+4. w tym pliku w tym zipie
+
+```
+bsk 2022/2023
+```
+
+## Zadanie 10
+
+Ze strony kursu pobierz plik secret.zip. Plik ten jest zabezpieczony hasłem. Wiedząc, że plik ten jest zabezpieczony hasłem o długości pomiędzy 5-6 znaków, i zawiera jedynie cyfry, za pomocą programu JohnTheRipper spróbuj złamać hasło, którym zaszyfrowany jest plik. Wygeneruj listę możliwych haseł za pomocą programu crunch.
+
+## Rozwiazanie
+
+1. crunch 5 6 0123456789 -o possible.txt
+
+```
+Crunch will now generate the following amount of data: 7600000 bytes
+7 MB
+0 GB
+0 TB
+0 PB
+Crunch will now generate the following number of lines: 1100000
+
+crunch: 100% completed generating output
+```
+
+2. zip2john ex2.10.zip > secured.hash
+3. john secured.hash --wordlist="possible.txt"
+
+```
+Using default input encoding: UTF-8
+Loaded 1 password hash (PKZIP [32/64])
+Will run 4 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+598494           (ex2.10.zip/ex2.10.txt)
+1g 0:00:00:00 DONE (2022-12-11 17:55) 16.66g/s 11741Kp/s 11741Kc/s 11741KC/s 588128..604511
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed.
+```
+
+4. co znajduje sie w tym pliku z haslem:
+
+```
+tajny tekst
+```
+
+## Zadanie 11
+
+Wykonaj zadanie 9 za pomocą narzędzia **fcrackzip**.
+
+## Rozwiazanie
+
+1. fcrackzip -u -D -p rockyou.txt lab_files/ex2.9.zip
+
+```
+PASSWORD FOUND!!!!: pw == 222222
+```
+
+## Zadanie 12
+
+Zidentyfikuj, jaki algorytm szyfrujący został wykorzystany do zaszyfrowania tekstu: **Z8CerTOLe1JlDKWfvDeifw==** przy pomocy klucza **a35febba42490abe**.
+
+## Rozwiazanie
+
+1. openssl list --cipher-commands | xargs -n1 > commands.txt
+
+```
+wszystkie algorytmy w jednej kolumnie w pliku
+```
+
+2. touch scrypt
+3. chmode +x scrypt
+4. nano scrypt
+
+```
+#!/bin/bash
+
+while read algorithm; do
+  echo "--------------"
+  echo "$algorithm"
+  openssl enc -d "$algorithm" -in message.enc -a -k a35febba42490abe
+  echo "--------------"
+done < $1
+```
+
+## Zadanie 14
+
+Ze strony kursu pobierz plik ex2.14.zip. Plik ten jest zabezpieczony hasłem. Spróbuj złamać hasło za pomocą narzędzia **hashcat**.
+
+## Rozwiazanie
+
+1. zip2john ex2.14.zip > secured.hash
+2. nano secured.hash
+
+```
+$pkzip$1*2*2*0*14*8*b2a2b920*0*44*0*14*7f48*55743a29a0d2f17818316364261f0d4f641a1c7c*$/pkzip$
+
+tak powinien wygladac
+```
+
+3. szukamy w internecie hashmode w hashcat dla tego hashu
+
+```
+-m 17210
+```
+
+4. hashcat -a -m 17210 secured.hash rockyou.txt
+
+```
+...
+$pkzip$1*2*2*0*14*8*b2a2b920*0*44*0*14*7f48*55743a29a0d2f17818316364261f0d4f641a1c7c*$/pkzip$:bruceflea
+...
+```
+
+5. w tym pliku znajduje sie:
+
+```
+treamae
+```

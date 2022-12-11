@@ -34,6 +34,11 @@ gpg --output vzhdan.priv --armour --export-secret-keys D526670B
 gpg --output vzhdan.priv --armour --export D526670B
 ```
 
+**How to sign key with another key(not my ultimate)?**
+```
+gpg --default-key {tu ten ktorym chce podpisac} --sign-key {tu ten ktory chce podpisac}
+```
+
 ## Zadanie 1
 
 Wykorzystując oprogramowanie **gpg**, wygeneruj zestaw kluczy (publiczny-prywatny) dla dowolnego użytkownikaprzy pomocy algorytmów RSA i DSA. (Pamiętaj, że algorytmu RSA możemy używać do szyfrowania/podpisywania, natomiast DSA do podpisywania.)
@@ -284,5 +289,73 @@ pub   rsa3072/795FF797 2022-12-05 [SC] [expires: 2024-12-04]
 uid         [ultimate] Alice 2010 <alice.bsk@wp.pl>
 sub   rsa3072/488D5759 2022-12-05 [E] [expires: 2024-12-04]
 ```
+
 3. gpg --encrypt --recipient 795FF797 --armour --output message.enc message.txt
 4. gpg --decrypt --output message.dec message.enc
+
+## Zadanie 12
+
+Ze strony kursu pobierz 2 pliki: **mallory.pub**(klucz publiczny użytkownika Mallory) oraz pliki **msg.sig**(podpisanyprzez niego plik) i **msg.txt**. Zweryfikuj podpis.
+
+## Rozwiazanie
+
+1. gpg --import mallory.pub (in my keyring)
+2. gpg --sign-key 287F20A671B4150734073F831D7D4F7D2483325B(mallory.pub)
+3. gpg --verify ex4.12.sig
+
+```
+gpg: Signature made Wed 02 Nov 2022 06:08:27 PM CET
+gpg:                using RSA key 287F20A671B4150734073F831D7D4F7D2483325B
+gpg: Good signature from "mallory.bsk@wp.pl" [full]
+```
+
+## Zadanie 13 (SPRAWDZAM INTEGRALNOSC)
+
+Użytkownicy systemów linuksowych mają możliwość pobrania oprogramowania z repozytoriów przygotowanych dladanej dystrybucji systemu. Niekiedy jednak dodatkowe oprogramowanie można pobrać jedynie ze strony WWW. W takim przypadku, jaka jest pewność, że plik znajdujący się na stronie, został na niej w rzeczywistości umieszczonyprzez dewelopera aplikacji, a nie hakera? Niektórzy programiści podpisują swoje oprogramowanie przy pomocyrozwiązań PGP (takich jak np. GPG). Dzięki temu, jako użytkownicy, mamy możliwość weryfikacji integralności oprogramowania. Proces weryfikacji jest prosty, należy:<br/>
+(a) Pobrać klucz publiczny autora oprogramowania<br/>(b) Sprawdzić fingerprint klucza<br/>(c) Zaimportować klucz do własnego keyringa<br/> (d) Pobrać sygnaturę dla ściąganego oprogramowania<br/> (e) Użyć klucza publicznego do zweryfikowania podpisu<br/>Pobierz oprogramowanie VeraCrypt i zweryfikuj jego integralność.
+
+## Rozwiazanie
+
+1. (a) wget https://www.idrix.fr/VeraCrypt/VeraCrypt_PGP_public_key.asc
+
+```
+mam teraz ten klucz publiczny u siebie na komputerze
+```
+
+2. (b) gpg --show-key --fingerprint VeraCrypt_PGP_public_key.asc
+
+```
+pub   rsa4096 2018-09-11 [SC]
+      5069 A233 D55A 0EEB 174A  5FC3 821A CD02 680D 16DE
+uid                      VeraCrypt Team (2018 - Supersedes Key ID=0x54DDD393) <veracrypt@idrix.fr>
+sub   rsa4096 2018-09-11 [E]
+sub   rsa4096 2018-09-11 [A]
+
+P.S zgadza sie z tym co na stronie
+```
+
+3. gpg --import VeraCrypt_PGP_public_key.asc
+
+```
+gpg: key 821ACD02680D16DE: 1 signature not checked due to a missing key
+gpg: key 821ACD02680D16DE: public key "VeraCrypt Team (2018 - Supersedes Key ID=0x54DDD393) <veracrypt@idrix.fr>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:   1  signed:   2  trust: 0-, 0q, 0n, 0m, 0f, 1u
+gpg: depth: 1  valid:   2  signed:   0  trust: 1-, 0q, 0n, 0m, 1f, 0u
+gpg: next trustdb check due at 2023-01-04
+```
+
+4. wget https://launchpad.net/veracrypt/trunk/1.25.9/+download/veracrypt-console-1.25.9-Debian-11-amd64.deb
+
+5. wget https://launchpad.net/veracrypt/trunk/1.25.9/+download/veracrypt-console-1.25.9-Debian-11-amd64.deb.sig
+
+6. gpg --verify veracrypt-console-1.25.9-Debian-11-amd64.deb.sig
+
+```
+gpg: assuming signed data in 'veracrypt-console-1.25.9-Debian-11-amd64.deb'
+gpg: Signature made Sun 20 Feb 2022 02:13:04 PM CET
+gpg:                using RSA key 5069A233D55A0EEB174A5FC3821ACD02680D16DE
+gpg: Good signature from "VeraCrypt Team (2018 - Supersedes Key ID=0x54DDD393) <veracrypt@idrix.fr>" [full]
+```

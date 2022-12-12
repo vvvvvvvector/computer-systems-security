@@ -35,8 +35,15 @@ gpg --output vzhdan.priv --armour --export D526670B
 ```
 
 **How to sign key with another key(not my ultimate)?**
+
 ```
 gpg --default-key {tu ten ktorym chce podpisac} --sign-key {tu ten ktory chce podpisac}
+```
+
+**How to encrypt with public key?**
+
+```
+ gpg --output file.enc --encrypt --recipient {publicKeyIdOrEmail} file.txt
 ```
 
 ## Zadanie 1

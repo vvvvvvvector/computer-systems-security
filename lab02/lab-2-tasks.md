@@ -236,7 +236,7 @@ wszystkie algorytmy w jednej kolumnie w pliku
 while read algorithm; do
   echo "--------------"
   echo "$algorithm"
-  openssl enc -d "$algorithm" -in message.enc -a -k a35febba42490abe
+  openssl enc -d "-$algorithm" -in message.enc -a -K a35febba42490abe
   echo "--------------"
 done < $1
 ```
